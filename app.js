@@ -34,7 +34,7 @@ $(document).ready(function(){
     function swapAdvertisements(){
         $('#advertisment_title').text(advertisementList[index++%advertisementList.length].content);
     }
-    setInterval(swapAdvertisements, 1000);
+    setInterval(swapAdvertisements, advertisementList[index++%advertisementList.length].time);
     
 
 });
