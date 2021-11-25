@@ -23,20 +23,17 @@ advertisementList.push(new Advertisement("Happy Shavuot","Happy Shavuot","https:
 myJason = JSON.stringify(advertisementList);
 console.log(myJason);
 
-//document.getElementById("advertisment_title").innerHTML = advertisementList[1].content;
-
 
 $(document).ready(function(){
 
     index = 0;
 
-
     function swapAdvertisements(){
-        $('#advertisment_title').text(advertisementList[index++%advertisementList.length].content);
-        $('#image_advrtisment').attr('src', advertisementList[index++%advertisementList.length].style)
+        i = index++%advertisementList.length;
+        $('#advertisment_title').text(advertisementList[i].content);
+        $('#image_advrtisment').attr('src', advertisementList[i].style);
     }
     setInterval(swapAdvertisements, advertisementList[index++%advertisementList.length].time);
     
-
 });
 
