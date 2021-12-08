@@ -1,23 +1,18 @@
 var express = require('express')
-//var app = express.createServer()
 var app = express()
-
 var port = 8080
+var path =require('path')
 
-app.get(myUrl, (req, res) => {
-  res.send('Hello World!')
+app.get('/screen=:num', (req, res) => {
+ if(req.params.num==1){
+    res.sendFile(path.join(__dirname,'index.html'))
+ }
+ else if(req.params.num==2){
 
-//   console.log(req.params)
-//   if(req.query("screen") == 3)
-//     res.send('amit')
+ }
+ else if(req.params.num==3){
 
-//   else if (req.query("screen") == 1)
-//     res.send('this is 1')
-})
-
-app.get('/screen=3', (req,res) => {
-    res.send('karin')
-
+ }
 })
 
 
