@@ -4,7 +4,7 @@ var app = express()
 
 var port = 8080
 
-app.get(myUrl, (req, res) => {
+app.get("/", (req, res) => {
   res.send('Hello World!')
 
 //   console.log(req.params)
