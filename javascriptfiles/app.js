@@ -35,7 +35,7 @@ myJason1 = JSON.stringify(advertisementList1);
 myJason2 = JSON.stringify(advertisementList2);
 myJason3 = JSON.stringify(advertisementList3);
 
-
+console.log(myJason1);
 
 
 
