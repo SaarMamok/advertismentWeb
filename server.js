@@ -56,14 +56,8 @@ MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
   dbo.dropDatabase();
-  dbo.createCollection(DBNAME, function(err, res) {
-    if (err) throw err;
-    console.log("Collection created!");
-    db.close();
-  });
-
-
-  dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
+  
+    dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
     db.close();
