@@ -60,23 +60,19 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
   if (err) throw err;
   console.log("1 document inserted");
-  db.close();
   });
-
  ////////////////////////////////////////////////////////////
-
-
- 
  app.use('/javascriptfiles',express.static(path.join(__dirname,'javascriptfiles')))
  app.get('/screen=:num', (req, res) => {
   if(req.params.num==1){
     var query = {screenNumber:1};
+    dbo.collection(DBNAME).find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+      });
     console.log(query);
-    // dbo.collection(DBNAME).find(query).toArray(function(err, result) {
-    //   if (err) throw err;
-    //   console.log(result);
-    //   db.close();
-    // });
+    
 
      res.sendFile(path.join(__dirname,'index1.html'))
   }
