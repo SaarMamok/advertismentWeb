@@ -43,7 +43,81 @@ let advertisementList1=[
     style:"https://as2.ftcdn.net/v2/jpg/02/22/78/69/1000_F_222786910_fb6u9Kq4X1Uzax8JQQbgYRgBTmq00GeV.jpg",
     time:5000,
     screenNumber:1
+  },
+// screen = 2
+{
+  title:"NIKE",
+  content:"JUST DO IT",
+  style:"https://as2.ftcdn.net/v2/jpg/04/02/95/13/1000_F_402951349_kddXJErU5Y2rbgwCMuAkEFhlSnQTgHIH.jpg",
+  time:5000,
+  screenNumber:2
+},
+{
+  title:"ADIDAS",
+  content:"RUN FASTER",
+  style:"https://as1.ftcdn.net/v2/jpg/04/40/72/76/1000_F_440727637_LdLWk4YgwdUFtb9U6YPI1tjoJrBEnWyq.jpg",
+  time:3000,
+  screenNumber:2
+},
+{
+  title:"PUMA",
+  content:"SPORTS LIVING",
+  style:"https://as2.ftcdn.net/v2/jpg/03/26/64/11/1000_F_326641117_eLFmcZEtjbvgZGt7EsxGx5WJ6iiGane5.jpg",
+  time:4000,
+  screenNumber:2
+},
+{
+  title:"REEBOK",
+  content:"TRAIN HARD",
+  style:"https://as2.ftcdn.net/v2/jpg/04/03/74/97/1000_F_403749704_6ksVq7Su2nhlARXkt90Tvi9SVMiGF2gB.jpg",
+  time:4000,
+  screenNumber:2
+},
+{
+  title:"UNDER ARMOUR",
+  content:"SPORTS LIVING",
+  style:"https://as1.ftcdn.net/v2/jpg/03/42/56/20/1000_F_342562062_6idHhTR0NYrYsaMLXTrWk1pbELojm5gj.jpg",
+  time:4000,
+  screenNumber:2
+},
+
+  //screen = 3
+  {
+    title:"AUDI",
+    content:"DRIVING IN STYLE",
+    style:"https://as2.ftcdn.net/v2/jpg/02/78/78/59/1000_F_278785930_AXMsvsjP5nYJaZykCSFdWnqGkaRzboMc.jpg",
+    time:3000,
+    screenNumber:3
+  },
+  {
+    title:"MERCEDEZ",
+    content:"DRIVING WITH CLASS",
+    style:"https://as1.ftcdn.net/v2/jpg/03/08/73/14/1000_F_308731491_DlnGiXGy2fS5bT2QKCpSpLfgCtqlPaKT.jpg",
+    time:5000,
+    screenNumber:3
+  },
+  {
+    title:"BUGGATI",
+    content:"BE THE FASTES ON ROAD",
+    style:"https://as2.ftcdn.net/v2/jpg/02/95/43/31/1000_F_295433165_dUeCPXFNuUHVjgWEdjlhYAURlQOug4O9.jpg",
+    time:3000,
+    screenNumber:3
+  },
+  {
+    title:"TOYOTA",
+    content:"LIVING LONGER",
+    style:"https://as2.ftcdn.net/v2/jpg/03/00/48/11/1000_F_300481162_hbPypB18TiD92H4qPdlo7Yk8unJ4xaEV.jpg",
+    time:5000,
+    screenNumber:3
+  },
+  {
+    title:"FERRARI",
+    content:"BE THE HORSE YOU WANT",
+    style:"https://as1.ftcdn.net/v2/jpg/02/98/35/82/1000_F_298358259_bwYxOvtrqJn7m8dfeYkkoNkusBSYNhep.jpg",
+    time:3000,
+    screenNumber:3
   }
+
 ];
 
 
