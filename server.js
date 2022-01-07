@@ -66,15 +66,13 @@ MongoClient.connect(url, function(err, db) {
  app.get('/screen=:num', (req, res) => {
   if(req.params.num==1){
     var query = {screenNumber:1};
+    var result_end = null;
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
-        db.close();
+        res.send(result);
       });
-    console.log(query);
     
-
-     res.sendFile(path.join(__dirname,'index1.html'))
+    //  res.sendFile(path.join(__dirname,'index1.html'))
   }
   else if(req.params.num==2){
     res.sendFile(path.join(__dirname,'index2.html'))
@@ -89,7 +87,6 @@ MongoClient.connect(url, function(err, db) {
 
 
 });
-
 
 
 
