@@ -37,65 +37,51 @@ const { MongoClient } = require("mongodb");
 // myJason2 = JSON.stringify(advertisementList2);
 // myJason3 = JSON.stringify(advertisementList3);
 
-// console.log(myJason1);
-
-var x =null;
-fetch("/screen=1")
-// Get the request body and convert to JSON:
-.then((res)=> res.json())
-// Here we have the request body as a JSON object ready to be used:
-.then((data)=>{
-    x=data;
-    // console.log( x );
-})
-.catch(console.error);
 
 
-// $(document).ready(function(){
-//     document.write("fsdfsdfffffffffffffffffffffffff");
-//     document.write(x);
-// })
 
 
-// const DBNAME = "Advertisements";
-// $(document).ready(function(){
 
-//     var htmlPage = document.getElementById("index").className;
-//     console.log(htmlPage);
-//     index = 0;
+$(document).ready(function(){
 
-//     if(htmlPage == "index1"){
-//         dbo.collection(DBNAME).find(query).toArray(function(err, result) {
-//             if (err) throw err;
-//             console.log(result);
-//           });
-//         setInterval(swapAdvertisements1, advertisementList1[index++%advertisementList1.length].time);
-//     }
-//     else if(htmlPage == "index2"){
-//         setInterval(swapAdvertisements2, advertisementList2[index++%advertisementList2.length].time);
-//     }
-//     else if(htmlPage == "index3"){
-//         setInterval(swapAdvertisements3, advertisementList3[index++%advertisementList3.length].time);
-//     }
+    value = $("#alldata").val();
+    document.write(value);
+    // var htmlPage = document.getElementById("index").className;
+    // console.log(htmlPage);
+    // index = 0;
+
+    // if(htmlPage == "index1"){
+    //     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
+    //         if (err) throw err;
+    //         console.log(result);
+    //       });
+    //     setInterval(swapAdvertisements1, advertisementList1[index++%advertisementList1.length].time);
+    // }
+    // else if(htmlPage == "index2"){
+    //     setInterval(swapAdvertisements2, advertisementList2[index++%advertisementList2.length].time);
+    // }
+    // else if(htmlPage == "index3"){
+    //     setInterval(swapAdvertisements3, advertisementList3[index++%advertisementList3.length].time);
+    // }
    
 
-//     function swapAdvertisements1(){
-//         i = index++%advertisementList1.length;
-//         $('#advertisment_title').text(advertisementList1[i].content);
-//         $('#image_advrtisment').attr('src', advertisementList1[i].style);
-//     }
+    function swapAdvertisements1(){
+        i = index++%advertisementList1.length;
+        $('#advertisment_title').text(advertisementList1[i].content);
+        $('#image_advrtisment').attr('src', advertisementList1[i].style);
+    }
 
-//     function swapAdvertisements2(){
-//         i = index++%advertisementList2.length;
-//         $('#advertisment_title').text(advertisementList2[i].content);
-//         $('#image_advrtisment').attr('src', advertisementList2[i].style);
-//     }
+    function swapAdvertisements2(){
+        i = index++%advertisementList2.length;
+        $('#advertisment_title').text(advertisementList2[i].content);
+        $('#image_advrtisment').attr('src', advertisementList2[i].style);
+    }
 
-//     function swapAdvertisements3(){
-//         i = index++%advertisementList3.length;
-//         $('#advertisment_title').text(advertisementList3[i].content);
-//         $('#image_advrtisment').attr('src', advertisementList3[i].style);
-//     }
+    function swapAdvertisements3(){
+        i = index++%advertisementList3.length;
+        $('#advertisment_title').text(advertisementList3[i].content);
+        $('#image_advrtisment').attr('src', advertisementList3[i].style);
+    }
     
-// });
+});
 

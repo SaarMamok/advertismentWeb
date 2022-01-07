@@ -20,8 +20,15 @@
         height: 30%;">
             <img id="image_advrtisment" style="height: 500px; width: 500px; border-radius: 20px;">
         </div>
-    </body>
-<h1> Retrived <%= data %></h1>
+
+<div id="alldata"> </div>
+
     <!-- <script type="text/javascript" src="javascriptfiles/app.js"></script> -->
 
 </html>
+
+<script>
+    var data_list = '<%- JSON.stringify(data) %>';
+    $('#alldata').html(data_list);
+</script>
+
