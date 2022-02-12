@@ -175,8 +175,23 @@ MongoClient.connect(url, function(err, db) {
  })
 
  app.post('/api/login', jsonParser,async (req, res) => {
-  const { username, password } = req.body
-  console.log(username);
+  const { username_admin, password_admin } = req.body
+  var query_user = {username: username_admin}
+  dbo.collection(DB_USERS).findOne({}, function(err, result){
+    if (err) throw err;
+    res.render("management.ejs")
+    // if (username_admin != result.username && password_admin != result.password ){
+    //    res.json({status: 'error', error: 'Invalid username/password'})
+
+    // }
+    // else{
+    //   res.render("management.ejs")
+
+    // }
+  })
+  
+
+   
   
   // const user = await User.findOne({ username }).lean()
 
