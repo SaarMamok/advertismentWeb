@@ -29,7 +29,6 @@
             event.preventDefault()
             const username = document.getElementById('username').value
             const password = document.getElementById('password').value
-            console.log(username);
             const result = await fetch('/api/login', {
                 method: 'POST',
                 headers: {
@@ -44,6 +43,10 @@
             if(result.status == 'error'){
                 
                 alert(result.error)
+            }
+            else{
+                
+                alert(result.status)
             }
            
         }
