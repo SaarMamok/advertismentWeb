@@ -41,15 +41,11 @@
                 })
             }).then((res) => res.json())
                
-            // if(result.status == 'ok'){
-            //     //everythiong went fine
-            //     console.log('Got the token: ', result.data)
-            //     localStorage.setItem('token' , result.data)
-            //     alert('Success')
-            // }
-            // else{
-            //     alert(result.error)
-            // }
+            if(result.status == 'error'){
+                
+                alert(result.error)
+            }
+           
         }
     </script>
 
