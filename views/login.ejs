@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +25,7 @@
     <script>
         const form = document.getElementById('login')
         form.addEventListener('submit', login)
-
+        var stat;
         async function login(event) {
             event.preventDefault()
             const username = document.getElementById('username').value
@@ -43,13 +44,17 @@
             if(result.status == 'error'){
                 
                 alert(result.error)
+                stat = false;
             }
             else{
-                
+                stat=true;
                 alert(result.status)
             }
-           
+            if(stat == true){
+               $(location).attr('href', result.address)
+            }
         }
+        
     </script>
 
 </body>

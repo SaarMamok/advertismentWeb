@@ -148,7 +148,10 @@ MongoClient.connect(url, function(err, db) {
     res.render("login.ejs");
     
   })
-
+  app.get('/management', (req,res)=>{
+    res.render("management.ejs");
+    
+  })
   app.get('/screen=:num', (req, res) => {
   var query = {screenNumber:1};
   if(req.params.num==1){
@@ -184,24 +187,10 @@ MongoClient.connect(url, function(err, db) {
 
     }
     else{
-      res.json({status: 'ok'});
-      // res.render({status: 'good'}, 'management.ejs');
+      res.json({status: 'ok', address:'http://127.0.0.1:8080/management' });
     }
-    // router.post()
   })
-  
 
-   
-  
-  // const user = await User.findOne({ username }).lean()
-
-  // if (!user) {
-  // 	return res.json({ status: 'error', error: 'Invalid username/password' })
-  // }
-
-  // 	return res.json({ status: 'ok', data: token })
-
-  // res.json({ status: 'error', error: 'Invalid username/password' })
 })
 
 });
