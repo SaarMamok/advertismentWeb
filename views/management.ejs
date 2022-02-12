@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body id="mainbody">
     <h1>here</h1>
 </body>
 </html>
+
+<script type="text/javascript">
+
+    var data_list = '<%- (data) %>';
+
+    const data_obj = JSON.parse (data_list)         
+
+    $(document).ready(function(){
+            // $('#advertisment_title').text(data_obj[i].title);
+            // $('#image_advrtisment').attr('src', data_obj[i].style);
+            // $('#mainbody').append(data_obj);
+            console.log(data_obj);
+        }
+
+    );
+
+</script>
