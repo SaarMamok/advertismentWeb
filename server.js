@@ -145,7 +145,7 @@ MongoClient.connect(url, function(err, db) {
     console.log("admin document inserted");
     });
   app.get('/', (req,res)=>{
-    res.render("management.ejs");
+    res.render("login.ejs");
     
   })
   app.get('/management', (req,res)=>{
