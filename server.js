@@ -6,6 +6,7 @@ var path =require('path')
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
 const DBNAME = "Advertisements";
+const DB_USERS = "Admins";
 app.set("view engine","ejs");
 
 
@@ -133,7 +134,18 @@ MongoClient.connect(url, function(err, db) {
   console.log("1 document inserted");
   });
 
-  app.use('/javascriptfiles',express.static(path.join(__dirname,'javascriptfiles')))
+  var  default_admin = "admin";
+  var default_password= "123456";
+  var admin_default = {"username": default_admin,"password":default_password};
+
+  dbo.collection(DB_USERS).insertOne(admin_default, function(err, res) {
+    if (err) throw err;
+    console.log("admin document inserted");
+    });
+  app.get('/', (req,res)=>{
+    res.render("login.ejs");
+  })
+
   app.get('/screen=:num', (req, res) => {
   var query = {screenNumber:1};
   if(req.params.num==1){
@@ -158,6 +170,24 @@ MongoClient.connect(url, function(err, db) {
     });
   }
  })
+
+ app.post('/api/login', async (req, res) => {
+	// const { username, password } = req.body
+	console.log(res.body);
+  console.log("here");
+  // const user = await User.findOne({ username }).lean()
+
+	// if (!user) {
+	// 	return res.json({ status: 'error', error: 'Invalid username/password' })
+	// }
+
+	// 	return res.json({ status: 'ok', data: token })
+
+	// res.json({ status: 'error', error: 'Invalid username/password' })
+})
+
 });
+
+
 
 app.listen(port)
