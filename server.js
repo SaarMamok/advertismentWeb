@@ -1,4 +1,6 @@
 var express = require('express')
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 var app = express()
 var port = 8080
 var path =require('path')
@@ -144,6 +146,7 @@ MongoClient.connect(url, function(err, db) {
     });
   app.get('/', (req,res)=>{
     res.render("login.ejs");
+    
   })
 
   app.get('/screen=:num', (req, res) => {
@@ -171,19 +174,19 @@ MongoClient.connect(url, function(err, db) {
   }
  })
 
- app.post('/api/login', async (req, res) => {
-	// const { username, password } = req.body
-	console.log(res.body);
-  console.log("here");
+ app.post('/api/login', jsonParser,async (req, res) => {
+  const { username, password } = req.body
+  console.log(username);
+  
   // const user = await User.findOne({ username }).lean()
 
-	// if (!user) {
-	// 	return res.json({ status: 'error', error: 'Invalid username/password' })
-	// }
+  // if (!user) {
+  // 	return res.json({ status: 'error', error: 'Invalid username/password' })
+  // }
 
-	// 	return res.json({ status: 'ok', data: token })
+  // 	return res.json({ status: 'ok', data: token })
 
-	// res.json({ status: 'error', error: 'Invalid username/password' })
+  // res.json({ status: 'error', error: 'Invalid username/password' })
 })
 
 });
