@@ -145,7 +145,7 @@ MongoClient.connect(url, function(err, db) {
     console.log("admin document inserted");
     });
   app.get('/', (req,res)=>{
-    res.render("login.ejs");
+    res.render("management.ejs");
     
   })
   app.get('/management', (req,res)=>{
@@ -192,6 +192,25 @@ MongoClient.connect(url, function(err, db) {
       res.json({status: 'ok', address:'http://127.0.0.1:8080/management' });
     }
   })
+
+})
+
+router.post('/api/delete_adv', jsonParser,async (req, res) => {
+    var query_delete_id = {title : req.body.title };
+    dbo.collection(DBNAME).deleteOne(query_delete_id, function (err, obj){
+      if (err) throw err;
+      console.log("One advertisment deleted");
+    })
+    
+    res.json({status: 'ok2'});
+    // if (req.body.username != String(result.username) || req.body.password != String(result.password) ){
+    //    res.json({status: 'error', error: 'Invalid username/password'});
+
+    // }
+    // else{
+    //   res.json({status: 'ok', address:'http://127.0.0.1:8080/management' });
+    // }
+  
 
 })
 
