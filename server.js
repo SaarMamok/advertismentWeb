@@ -11,6 +11,7 @@ const DBNAME = "Advertisements";
 const DB_USERS = "Admins";
 app.set("view engine","ejs");
 
+app.use('/public', express.static('public'));
 
 var advertisementList1=[
   {
