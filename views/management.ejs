@@ -15,58 +15,108 @@
     <p id='showData' style="align-items: center;"></p>
     
     <br>
-    <button class="open-button" onclick="openForm()">Add Advertisment</button>
+    <button class="open-button" onclick="addopenForm();">Add Advertisment</button>
 
-    <div class="form-popup" id="myForm">
+    <div class="form-popup" id="AddForm">
       <form class="form-container">
         <h2>New Advertisment</h2>
     
         <label for="title"><b>Title</b></label>
-        <input type="text"  placeholder="Enter Title" id="title_id" required>
+        <input type="text"  placeholder="Enter Title" id="title_add" required>
     
         <label for="content"><b>Content</b></label>
-        <input type="text" placeholder="Enter content" id="content_id" required>
+        <input type="text" placeholder="Enter content" id="content_add" required>
     
-        <label for="image"><b>Image</b></label>
-        <input type="text" placeholder="Enter Image Url" id="image_id" required>
+        <label for="style"><b>Image</b></label>
+        <input type="text" placeholder="Enter Image Url" id="style_add" required>
     
         <label for="time"><b>Time</b></label>
-        <input type="number" placeholder="Enter time in sec" id="time_id" required>
+        <input type="number" placeholder="Enter time in sec" id="time_add" required>
 
         <label for="Screen-number"><b>Screem Number</b></label>
-        <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_id" required>
+        <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_add" required>
     
         <button type="submit" class="submit_btn" onclick="add_params();">Submit</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
       </form>
     </div>
+
+    <div class="form-popup" id="EditForm">
+        <form class="form-container">
+          <h2>Edit Advertisment</h2>
+      
+          <label for="title"><b>Title</b></label>
+          <input type="text"  placeholder="Enter Title" id="title_edit" required>
+      
+          <label for="content"><b>Content</b></label>
+          <input type="text" placeholder="Enter content" id="content_edit" required>
+      
+          <label for="style"><b>Image</b></label>
+          <input type="text" placeholder="Enter Image Url" id="style_edit" required>
+      
+          <label for="time"><b>Time</b></label>
+          <input type="number" placeholder="Enter time in sec" id="time_edit" required>
+  
+          <label for="Screen-number"><b>Screem Number</b></label>
+          <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_edit" required>
+      
+          <button type="submit" class="submit_btn" onclick="edit_params();">Submit</button>
+          <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
+        </form>
+      </div>
+  
 
 </body>
 </html>
 
 <script type="text/javascript">
    
-   function add_params() {
-        console.log("entered func")
-        const title = document.getElementById("title_id").value;
-        const content = document.getElementById("content_id").value
-        const image = document.getElementById("image_id").value
-        const time = document.getElementById("time_id").value
-        const screen_number = document.getElementById("screen_number_id").value
-        console.log(title);
-        console.log(content);
-        console.log(image);
-        console.log(time);
-        console.log(screen_number);
+    function add_params() {
+        add_to_db()
     }
-
+    async function add_to_db() 
+        {
+            console.log("inside added to db");
+            const title = document.getElementById("title_add").value;
+            const content = document.getElementById("content_add").value
+            const style = document.getElementById("style_add").value
+            const time = document.getElementById("time_add").value
+            const screen_number = document.getElementById("screen_number_add").value
+            console.log(title)
+            const result = await fetch('/api/add_adv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    content,
+                    style,
+                    time,
+                    screen_number
+                })
+            }).then((res) => res.json())
+               
+            if(result.status == 'error'){
+                
+                alert(result.error)
+                stat = false;
+            }
+            else{
+                stat=true;
+                alert(result.status)
+            }
+        }
   
-     function openForm() {
-      document.getElementById("myForm").style.display = "block";
+     function addopenForm() {
+      document.getElementById("AddForm").style.display = "block";
     }
-    
+    function editopenForm2() {
+      document.getElementById("EditForm").style.display = "block";
+    }
     function closeForm() {
-      document.getElementById("myForm").style.display = "none";
+      document.getElementById("AddForm").style.display = "none";
+      document.getElementById("EditForm").style.display = "none";
     }
     var _row = null;
     async function delete_from_db(btn_id) 
@@ -98,21 +148,56 @@
         delete_from_db(ctl.id);
     }
 
+    async function edit_from_db(col_list) 
+        {
+            console.log("inside changed from db");
+            const title = document.getElementById("title_edit").value;
+            const content = document.getElementById("content_edit").value
+            const style = document.getElementById("style_edit").value
+            const time = document.getElementById("time_edit").value
+            const screen_number = document.getElementById("screen_number_edit").value
+            console.log(title)
+            const result = await fetch('/api/edit_adv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    content,
+                    style,
+                    time,
+                    screen_number
+                })
+            }).then((res) => res.json())
+               
+            if(result.status == 'error'){
+                
+                alert(result.error)
+                stat = false;
+            }
+            else{
+                stat=true;
+                alert(result.status)
+            }
+        }
+
+    list_type = []
     function editadv(ctl){
+        console.log(ctl.t)
+        editopenForm2();
         _row = $(ctl).parents("tr");
         var cols = _row.children("td");
-        $("#title_id").val($(cols[1]).text());
-        $("#content_id").val($(cols[2]).text());
-        $("#image_id").val($(cols[3]).text());
-        $("#time_id").val($(cols[4]).text());
-        $("#screen_number_id").val($(cols[5]).text());
-        
-        // Change Update Button Text
-        $("#updateButton").text("Update");
+        $("#title_edit").val($(cols[1]).text());
+        $("#content_edit").val($(cols[2]).text());
+        $("#style_edit").val($(cols[3]).text());
+        $("#time_edit").val($(cols[4]).text());
+        $("#screen_number_edit").val($(cols[5]).text());
     }
 
-    
-
+    function edit_params(){
+        edit_from_db(list_type);
+    }
     
     var data_list = '<%- (data) %>';
 
