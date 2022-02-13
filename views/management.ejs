@@ -18,25 +18,25 @@
     <button class="open-button" onclick="openForm()">Add Advertisment</button>
 
     <div class="form-popup" id="myForm">
-      <form action="/action_page.php" class="form-container">
+      <form class="form-container">
         <h2>New Advertisment</h2>
     
         <label for="title"><b>Title</b></label>
-        <input type="text" placeholder="Enter Title" name="Title" required>
+        <input type="text"  placeholder="Enter Title" id="title_id" required>
     
         <label for="content"><b>Content</b></label>
-        <input type="text" placeholder="Enter content" name="content" required>
+        <input type="text" placeholder="Enter content" class="content_id" required>
     
         <label for="image"><b>Image</b></label>
-        <input type="text" placeholder="Enter Image Url" name="image" required>
+        <input type="text" placeholder="Enter Image Url" id="image_id" required>
     
         <label for="time"><b>Time</b></label>
-        <input type="number" placeholder="Enter time in sec" name="time" required>
+        <input type="number" placeholder="Enter time in sec" id="time_id" required>
 
         <label for="Screen-number"><b>Screem Number</b></label>
-        <input type="number" placeholder="Enter Screen-number (1, 2, 3)" name="Screen-number" required>
+        <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_id" required>
     
-        <button type="submit" class="submit_btn">Submit</button>
+        <button type="submit" class="submit_btn" onclick="add_params()">Submit</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
       </form>
     </div>
@@ -45,6 +45,20 @@
 </html>
 
 <script type="text/javascript">
+    console.log("hello1")
+    function add_params() {
+        var title = document.getElementById('title_id').placeholder
+        // const content = document.getElementById('content_id').value
+        // const image = document.getElementById('image_id').value
+        // const time = document.getElementById('time_id').value
+        // const screen_number = document.getElementById('screen_number_id').value
+        console.log(title)
+        console.log("hello")
+
+
+    }
+     
+     
      function openForm() {
       document.getElementById("myForm").style.display = "block";
     }
@@ -81,6 +95,7 @@
         $(ctl).parents("tr").remove();
         delete_from_db(ctl.id);
     }
+
     function editadv(ctl){
         _row = $(ctl).parents("tr");
         var cols = _row.children("td");
@@ -91,11 +106,16 @@
         // Change Update Button Text
         $("#updateButton").text("Update");
     }
+
+    
+
+    
     var data_list = '<%- (data) %>';
 
     const data_obj = JSON.parse (data_list)         
 
-     $(document).ready(function(){
+     $(document).ready(function()
+        {
             // $('#advertisment_title').text(data_obj[i].title);
             // $('#image_advrtisment').attr('src', data_obj[i].style);
             // $('#mainbody').append(data_obj);
@@ -142,7 +162,8 @@
             divShowData.appendChild(table);
             
         }
-
+   
+    
      ); 
-
+   
 </script>
