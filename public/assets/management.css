@@ -5,9 +5,7 @@ h1{
     color: black;
 }
 
-p{
-    align-content: center;
-}
+
 
 th, td, p, input, h3 {
     font:15px 'Segoe UI';
@@ -25,9 +23,8 @@ table{
     border: solid 4px black;
     border-collapse: collapse;
     padding: 4px 5px;
-    position: absolute;
-    left: 280px;
-    top: 100px;
+    margin-left: auto;
+    margin-right: auto;
    
 }
 
@@ -50,9 +47,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
   bottom: 23px;
   right: 28px;
   width: 280px;
-  position: absolute;
-  left: 50px;
-  bottom: 250px;
+  margin-left: 80px;
+  margin-right: auto;
+  margin-bottom: 250px;
 }
 
 
@@ -60,13 +57,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: none;
   position: absolute;
   right: 800px;
-  bottom: 250px;
+  bottom: 100px;
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
 
 .form-container {
-  max-width: 500px;
+  max-width: 450px;
   padding: 10px;
   background-color: white;
 }
