@@ -25,7 +25,7 @@
         <input type="text"  placeholder="Enter Title" id="title_id" required>
     
         <label for="content"><b>Content</b></label>
-        <input type="text" placeholder="Enter content" class="content_id" required>
+        <input type="text" placeholder="Enter content" id="content_id" required>
     
         <label for="image"><b>Image</b></label>
         <input type="text" placeholder="Enter Image Url" id="image_id" required>
@@ -36,7 +36,7 @@
         <label for="Screen-number"><b>Screem Number</b></label>
         <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_id" required>
     
-        <button type="submit" class="submit_btn" onclick="add_params()">Submit</button>
+        <button type="submit" class="submit_btn" onclick="add_params();">Submit</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
       </form>
     </div>
@@ -45,20 +45,22 @@
 </html>
 
 <script type="text/javascript">
-    console.log("hello1")
-    function add_params() {
-        var title = document.getElementById('title_id').placeholder
-        // const content = document.getElementById('content_id').value
-        // const image = document.getElementById('image_id').value
-        // const time = document.getElementById('time_id').value
-        // const screen_number = document.getElementById('screen_number_id').value
-        console.log(title)
-        console.log("hello")
-
-
+   
+   function add_params() {
+        console.log("entered func")
+        const title = document.getElementById("title_id").value;
+        const content = document.getElementById("content_id").value
+        const image = document.getElementById("image_id").value
+        const time = document.getElementById("time_id").value
+        const screen_number = document.getElementById("screen_number_id").value
+        console.log(title);
+        console.log(content);
+        console.log(image);
+        console.log(time);
+        console.log(screen_number);
     }
-     
-     
+
+  
      function openForm() {
       document.getElementById("myForm").style.display = "block";
     }
@@ -99,9 +101,11 @@
     function editadv(ctl){
         _row = $(ctl).parents("tr");
         var cols = _row.children("td");
-        $("#title").val($(cols[1]).text());
-        $("#introdate").val($(cols[2]).text());
-        $("#url").val($(cols[3]).text());
+        $("#title_id").val($(cols[1]).text());
+        $("#content_id").val($(cols[2]).text());
+        $("#image_id").val($(cols[3]).text());
+        $("#time_id").val($(cols[4]).text());
+        $("#screen_number_id").val($(cols[5]).text());
         
         // Change Update Button Text
         $("#updateButton").text("Update");
