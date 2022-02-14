@@ -17,9 +17,9 @@
     <br>
 
 
-    <button class="open-button" onclick="changePasswordopenForm();">Change Username or Password</button>
+    <button class="open-button" onclick="change_Username_PasswordForm();">Change Username or Password</button>
 
-    <div class="form-popup" id="changePasswordForm">
+    <div class="form-popup" id="changeUsernamePasswordForm">
         <form class="form-container">
           <h2>Change Username or Password</h2>
       
@@ -100,9 +100,19 @@
 
 <script type="text/javascript">
    
+    function closeForm() {
+      document.getElementById("AddForm").style.display = "none";
+      document.getElementById("EditForm").style.display = "none";
+      document.getElementById("changePasswordForm").style.display = "none";
+    }
+    function addopenForm() {
+      document.getElementById("AddForm").style.display = "block";
+    }
+
     function add_params() {
         add_to_db()
     }
+
     async function add_to_db() 
         {
             console.log("inside added to db");
@@ -137,20 +147,18 @@
             }
         }
 
-
-
-    function changePasswordopenForm() {
-      document.getElementById("changePasswordForm").style.display = "block";
+    function change_Username_PasswordForm() {
+      document.getElementById("changeUsernamePasswordForm").style.display = "block";
     }
     function change_params(){
-        changepassword()
+        change_username_password()
     }
-    async function changepassword() {
+    async function change_username_password() {
             console.log("inside change password");
             const username = document.getElementById('username_change').value
             const password = document.getElementById('password_change').value
             console.log(password)
-            const result = await fetch('/api/change_password', {
+            const result = await fetch('/api/change_username_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -169,20 +177,10 @@
             }
         }
   
-     function addopenForm() {
-      document.getElementById("AddForm").style.display = "block";
-    }
-    function editopenForm2() {
-      document.getElementById("EditForm").style.display = "block";
-    }
-    function closeForm() {
-      document.getElementById("AddForm").style.display = "none";
-      document.getElementById("EditForm").style.display = "none";
-      document.getElementById("changePasswordForm").style.display = "none";
-    }
+     
     var _row = null;
     async function delete_from_db(btn_id) 
-        {
+    {
             console.log("inside delete from db");
             const title = btn_id
             const result = await fetch('/api/delete_adv', {
@@ -204,47 +202,56 @@
                 stat=true;
                 alert(result.status)
             }
-        }
+    }
+
     function deleteadv(ctl){
         $(ctl).parents("tr").remove();
         delete_from_db(ctl.id);
     }
 
+    function edit_params(){
+        edit_from_db(list_type);
+    }
+
+    function editopenForm2() {
+      document.getElementById("EditForm").style.display = "block";
+    }
+
     async function edit_from_db(col_list) 
-        {
-            console.log("inside changed from db");
-            const id = document.getElementById("id_edit").value
-            const title = document.getElementById("title_edit").value;
-            const content = document.getElementById("content_edit").value
-            const style = document.getElementById("style_edit").value
-            const time = document.getElementById("time_edit").value
-            const screenNumber = document.getElementById("screenNumber_edit").value
-            console.log(id)
-            const result = await fetch('/api/edit_adv', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id,
-                    title,
-                    content,
-                    style,
-                    time,
-                    screenNumber
-                })
-            }).then((res) => res.json())
-               
-            if(result.status == 'error'){
-                
-                alert(result.error)
-                stat = false;
-            }
-            else{
-                stat=true;
-                alert(result.status)
-            }
+    {
+        console.log("inside changed from db");
+        const id = document.getElementById("id_edit").value
+        const title = document.getElementById("title_edit").value;
+        const content = document.getElementById("content_edit").value
+        const style = document.getElementById("style_edit").value
+        const time = document.getElementById("time_edit").value
+        const screenNumber = document.getElementById("screenNumber_edit").value
+        console.log(id)
+        const result = await fetch('/api/edit_adv', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id,
+                title,
+                content,
+                style,
+                time,
+                screenNumber
+            })
+        }).then((res) => res.json())
+            
+        if(result.status == 'error'){
+            
+            alert(result.error)
+            stat = false;
         }
+        else{
+            stat=true;
+            alert(result.status)
+        }
+    }
 
     list_type = []
     function editadv(ctl){
@@ -260,14 +267,8 @@
         $("#screenNumber_edit").val($(cols[5]).text());
     }
 
-    function edit_params(){
-        edit_from_db(list_type);
-    }
-    
     var data_list = '<%- (data) %>';
-
     const data_obj = JSON.parse (data_list)         
-
      $(document).ready(function()
         {
             // $('#advertisment_title').text(data_obj[i].title);
@@ -284,7 +285,6 @@
                         col.push(key);
                     }
                 }
-
             }
             var table = document.createElement("table");
             // col.push("Action");
@@ -314,10 +314,7 @@
             var divShowData = document.getElementById('showData');
             divShowData.innerHTML = "";
             divShowData.appendChild(table);
-            
         }
-   
-    
      ); 
    
 </script>

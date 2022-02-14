@@ -212,7 +212,7 @@ MongoClient.connect(url, function(err, db) {
     dbo.collection(DBNAME).findOne({'_id': o_id},function(err, obj){
       if (err) throw err;
         console.log(obj);
-        
+
       var new_query_edit = { $set: { title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
       dbo.collection(DBNAME).findOneAndUpdate(obj, new_query_edit,  function (err, obj){
       if (err) throw err;
@@ -243,9 +243,9 @@ MongoClient.connect(url, function(err, db) {
   })
 
 
-  router.post('/api/change_password',jsonParser, async (req, res) => {
-        var new_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
-        dbo.collection(DB_USERS).findOneAndUpdate({},new_passowrd, function (err, obj){
+  router.post('/api/change_username_password',jsonParser, async (req, res) => {
+        var new_username_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
+        dbo.collection(DB_USERS).findOneAndUpdate({},new_username_passowrd, function (err, obj){
           if (err) throw err;
           console.log("Admin password changed");
         })
