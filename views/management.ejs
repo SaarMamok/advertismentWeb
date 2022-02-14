@@ -68,6 +68,8 @@
         <form class="form-container">
           <h2>Edit Advertisment</h2>
       
+          <input type="text"  id="id_edit" required>
+
           <label for="title"><b>Title</b></label>
           <input type="text"  placeholder="Enter Title" id="title_edit" required>
       
@@ -211,18 +213,20 @@
     async function edit_from_db(col_list) 
         {
             console.log("inside changed from db");
+            const id = document.getElementById("id_edit").value
             const title = document.getElementById("title_edit").value;
             const content = document.getElementById("content_edit").value
             const style = document.getElementById("style_edit").value
             const time = document.getElementById("time_edit").value
             const screenNumber = document.getElementById("screenNumber_edit").value
-            console.log(title)
+            console.log(id)
             const result = await fetch('/api/edit_adv', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    id,
                     title,
                     content,
                     style,
@@ -248,6 +252,7 @@
         editopenForm2();
         _row = $(ctl).parents("tr");
         var cols = _row.children("td");
+        $("#id_edit").val($(cols[0]).text());
         $("#title_edit").val($(cols[1]).text());
         $("#content_edit").val($(cols[2]).text());
         $("#style_edit").val($(cols[3]).text());
