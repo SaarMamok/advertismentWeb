@@ -111,7 +111,7 @@
             const screenNumber = document.getElementById("screenNumber_add").value
             console.log(title)
             const result = await fetch('/api/add_adv', {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
