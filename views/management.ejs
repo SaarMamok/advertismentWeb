@@ -14,9 +14,6 @@
     <h1>Advertisments Settings </h1>
     <p id='showData' style="align-items: center;"></p>
     
-    <br>
-
-
     <button class="open-button" onclick="change_Username_PasswordForm();">Change Username or Password</button>
 
     <div class="form-popup" id="changeUsernamePasswordForm">
@@ -91,10 +88,21 @@
       </div>
 
 
-
+        <div class="client-info">
+            <br>
+            <div class="clients-connected">
+                <h3>Number of clientes Connected</h3>
+                <h2 id="num-of-clients-connected">0</h2>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="clients-disconnected">
+                <h3>Number of clientes Disconnected</h3>
+                <h2 id="num-of-clients-disconnected">0</h2>
+            </div>
+        </div>
       
-  
-
 </body>
 </html>
 
@@ -103,7 +111,7 @@
     function closeForm() {
       document.getElementById("AddForm").style.display = "none";
       document.getElementById("EditForm").style.display = "none";
-      document.getElementById("changePasswordForm").style.display = "none";
+      document.getElementById("changeUsernamePasswordForm").style.display = "none";
     }
     function addopenForm() {
       document.getElementById("AddForm").style.display = "block";
