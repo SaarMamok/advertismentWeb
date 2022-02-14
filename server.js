@@ -16,6 +16,7 @@ app.use('/public', express.static('public'));
 
 var advertisementList1=[
   {
+    id: 1,
     title:"Happy Hanuka",
     content:"Happy Hanuka",
     style:"https://www.hrus.co.il/wp-content/uploads/shutterstock_319097270.jpg",
@@ -23,6 +24,7 @@ var advertisementList1=[
     screenNumber:1
   },
   {
+    id: 2,
     title:"Happy Purim",
     content:"Happy Purim",
     style:"https://i.ytimg.com/vi/r4qHbKexLak/maxresdefault.jpg",
@@ -30,6 +32,7 @@ var advertisementList1=[
     screenNumber:1
   },
   {
+    id: 3,
     title:"Happy Passover",
     content:"Happy Passover",
     style:"https://www.gov.il/BlobFolder/news/news-25-03-21/he/news_2021_03_news-25-03-21.jpg",
@@ -37,6 +40,7 @@ var advertisementList1=[
     screenNumber:1
   },
   {
+    id: 4,
     title:"Happy Shavuot",
     content:"Happy Shavuot",
     style:"https://i.ytimg.com/vi/-VNC2FDtlSk/maxresdefault.jpg",
@@ -44,6 +48,7 @@ var advertisementList1=[
     screenNumber:1
   },
   {
+    id: 5,
     title:"Happy Sucot",
     content:"Happy Sucot",
     style:"https://as2.ftcdn.net/v2/jpg/02/22/78/69/1000_F_222786910_fb6u9Kq4X1Uzax8JQQbgYRgBTmq00GeV.jpg",
@@ -52,6 +57,7 @@ var advertisementList1=[
   },
 // screen = 2
 {
+  id: 6,
   title:"NIKE",
   content:"JUST DO IT",
   style:"https://as2.ftcdn.net/v2/jpg/04/02/95/13/1000_F_402951349_kddXJErU5Y2rbgwCMuAkEFhlSnQTgHIH.jpg",
@@ -59,6 +65,7 @@ var advertisementList1=[
   screenNumber:2
 },
 {
+  id: 7,
   title:"ADIDAS",
   content:"RUN FASTER",
   style:"https://as1.ftcdn.net/v2/jpg/04/40/72/76/1000_F_440727637_LdLWk4YgwdUFtb9U6YPI1tjoJrBEnWyq.jpg",
@@ -66,6 +73,7 @@ var advertisementList1=[
   screenNumber:2
 },
 {
+  id: 8,
   title:"PUMA",
   content:"SPORTS LIVING",
   style:"https://as2.ftcdn.net/v2/jpg/03/26/64/11/1000_F_326641117_eLFmcZEtjbvgZGt7EsxGx5WJ6iiGane5.jpg",
@@ -73,6 +81,7 @@ var advertisementList1=[
   screenNumber:2
 },
 {
+  id: 9,
   title:"REEBOK",
   content:"TRAIN HARD",
   style:"https://as2.ftcdn.net/v2/jpg/04/03/74/97/1000_F_403749704_6ksVq7Su2nhlARXkt90Tvi9SVMiGF2gB.jpg",
@@ -80,6 +89,7 @@ var advertisementList1=[
   screenNumber:2
 },
 {
+  id: 10,
   title:"UNDER ARMOUR",
   content:"SPORTS LIVING",
   style:"https://as1.ftcdn.net/v2/jpg/03/42/56/20/1000_F_342562062_6idHhTR0NYrYsaMLXTrWk1pbELojm5gj.jpg",
@@ -89,6 +99,7 @@ var advertisementList1=[
 
   //screen = 3
   {
+    id: 11,
     title:"AUDI",
     content:"DRIVING IN STYLE",
     style:"https://as2.ftcdn.net/v2/jpg/02/78/78/59/1000_F_278785930_AXMsvsjP5nYJaZykCSFdWnqGkaRzboMc.jpg",
@@ -96,6 +107,7 @@ var advertisementList1=[
     screenNumber:3
   },
   {
+    id: 12,
     title:"MERCEDEZ",
     content:"DRIVING WITH CLASS",
     style:"https://as1.ftcdn.net/v2/jpg/03/08/73/14/1000_F_308731491_DlnGiXGy2fS5bT2QKCpSpLfgCtqlPaKT.jpg",
@@ -103,6 +115,7 @@ var advertisementList1=[
     screenNumber:3
   },
   {
+    id: 13,
     title:"BUGGATI",
     content:"BE THE FASTES ON ROAD",
     style:"https://as2.ftcdn.net/v2/jpg/02/95/43/31/1000_F_295433165_dUeCPXFNuUHVjgWEdjlhYAURlQOug4O9.jpg",
@@ -110,6 +123,7 @@ var advertisementList1=[
     screenNumber:3
   },
   {
+    id: 14,
     title:"TOYOTA",
     content:"LIVING LONGER",
     style:"https://as2.ftcdn.net/v2/jpg/03/00/48/11/1000_F_300481162_hbPypB18TiD92H4qPdlo7Yk8unJ4xaEV.jpg",
@@ -117,6 +131,7 @@ var advertisementList1=[
     screenNumber:3
   },
   {
+    id: 15,
     title:"FERRARI",
     content:"BE THE HORSE YOU WANT",
     style:"https://as1.ftcdn.net/v2/jpg/02/98/35/82/1000_F_298358259_bwYxOvtrqJn7m8dfeYkkoNkusBSYNhep.jpg",
@@ -205,11 +220,14 @@ MongoClient.connect(url, function(err, db) {
   })
 
   router.post('/api/edit_adv', jsonParser,async (req, res) => {
-    
-    var new_query_edit = { $set: { title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
-    dbo.collection(DBNAME).findOneAndUpdate({}, new_query_edit,  function (err, obj){
+    console.log(req.body.id)
+    const query_id = {id: req.body.id}
+    // const options = { returnNewDcomunet: true}
+    const new_query_edit = { $set:  { title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
+    dbo.collection(DBNAME).updateOne(obj, new_query_edit, function (err, result){
       if (err) throw err;
       console.log("One advertisment changed");
+      console.log(result);
     })
       res.json({status: 'Advertisement Changed'
     });
@@ -233,13 +251,13 @@ MongoClient.connect(url, function(err, db) {
   })
 
 
-  router.post('/api/change_password',jsonParser, async (req, res) => {
-        var new_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
-        dbo.collection(DB_USERS).findOneAndUpdate({},new_passowrd, function (err, obj){
+  router.post('/api/change_username_password',jsonParser, async (req, res) => {
+        var new_username_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
+        dbo.collection(DB_USERS).findOneAndUpdate({},new_username_passowrd, function (err, obj){
           if (err) throw err;
-          console.log("Admin password changed");
+          console.log("Admin username/password changed");
         })
-        res.json({status: 'Password Changed'
+        res.json({status: 'Username/Password Changed'
       });
     })
 
