@@ -30,7 +30,6 @@ var advertisementList1=[
     screenNumber:1
   },
   {
-
     title:"Happy Passover",
     content:"Happy Passover",
     style:"https://www.gov.il/BlobFolder/news/news-25-03-21/he/news_2021_03_news-25-03-21.jpg",
@@ -38,7 +37,6 @@ var advertisementList1=[
     screenNumber:1
   },
   {
-    
     title:"Happy Shavuot",
     content:"Happy Shavuot",
     style:"https://i.ytimg.com/vi/-VNC2FDtlSk/maxresdefault.jpg",
@@ -46,7 +44,6 @@ var advertisementList1=[
     screenNumber:1
   },
   {
-    
     title:"Happy Sucot",
     content:"Happy Sucot",
     style:"https://as2.ftcdn.net/v2/jpg/02/22/78/69/1000_F_222786910_fb6u9Kq4X1Uzax8JQQbgYRgBTmq00GeV.jpg",
@@ -55,7 +52,6 @@ var advertisementList1=[
   },
 // screen = 2
 {
-  
   title:"NIKE",
   content:"JUST DO IT",
   style:"https://as2.ftcdn.net/v2/jpg/04/02/95/13/1000_F_402951349_kddXJErU5Y2rbgwCMuAkEFhlSnQTgHIH.jpg",
@@ -63,7 +59,6 @@ var advertisementList1=[
   screenNumber:2
 },
 {
-  
   title:"ADIDAS",
   content:"RUN FASTER",
   style:"https://as1.ftcdn.net/v2/jpg/04/40/72/76/1000_F_440727637_LdLWk4YgwdUFtb9U6YPI1tjoJrBEnWyq.jpg",
@@ -210,15 +205,22 @@ MongoClient.connect(url, function(err, db) {
   })
 
   router.post('/api/edit_adv', jsonParser,async (req, res) => {
-    console.log(req.body.id)
-    const query_id = {id: req.body.id}
-    // const options = { returnNewDcomunet: true}
-    const new_query_edit = { $set:  { title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
-    dbo.collection(DBNAME).updateOne(obj, new_query_edit, function (err, result){
+    itemId = req.body.id
+    var mongosss = require('mongodb');
+    var o_id = new mongosss.ObjectID(itemId);
+
+    dbo.collection(DBNAME).findOne({'_id': o_id},function(err, obj){
+      if (err) throw err;
+        console.log(obj);
+        
+      var new_query_edit = { $set: { title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
+      dbo.collection(DBNAME).findOneAndUpdate(obj, new_query_edit,  function (err, obj){
       if (err) throw err;
       console.log("One advertisment changed");
-      console.log(result);
     })
+
+    })
+
       res.json({status: 'Advertisement Changed'
     });
   })
@@ -241,13 +243,13 @@ MongoClient.connect(url, function(err, db) {
   })
 
 
-  router.post('/api/change_username_password',jsonParser, async (req, res) => {
-        var new_username_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
-        dbo.collection(DB_USERS).findOneAndUpdate({},new_username_passowrd, function (err, obj){
+  router.post('/api/change_password',jsonParser, async (req, res) => {
+        var new_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
+        dbo.collection(DB_USERS).findOneAndUpdate({},new_passowrd, function (err, obj){
           if (err) throw err;
-          console.log("Admin username/password changed");
+          console.log("Admin password changed");
         })
-        res.json({status: 'Username/Password Changed'
+        res.json({status: 'Password Changed'
       });
     })
 

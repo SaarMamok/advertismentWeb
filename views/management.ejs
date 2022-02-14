@@ -17,9 +17,9 @@
     <br>
 
 
-    <button class="open-button" onclick="changeUsername_PasswordopenForm();">Change Username or Password</button>
+    <button class="open-button" onclick="changePasswordopenForm();">Change Username or Password</button>
 
-    <div class="form-popup" id="change_Username_PasswordForm">
+    <div class="form-popup" id="changePasswordForm">
         <form class="form-container">
           <h2>Change Username or Password</h2>
       
@@ -139,18 +139,18 @@
 
 
 
-    function changeUsername_PasswordopenForm() {
-      document.getElementById("change_Username_PasswordForm").style.display = "block";
+    function changePasswordopenForm() {
+      document.getElementById("changePasswordForm").style.display = "block";
     }
     function change_params(){
-        change_username_password()
+        changepassword()
     }
-    async function change_username_password() {
+    async function changepassword() {
             console.log("inside change password");
             const username = document.getElementById('username_change').value
             const password = document.getElementById('password_change').value
             console.log(password)
-            const result = await fetch('/api/change_username_password', {
+            const result = await fetch('/api/change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -178,7 +178,7 @@
     function closeForm() {
       document.getElementById("AddForm").style.display = "none";
       document.getElementById("EditForm").style.display = "none";
-      document.getElementById("change_Username_PasswordForm").style.display = "none";
+      document.getElementById("changePasswordForm").style.display = "none";
     }
     var _row = null;
     async function delete_from_db(btn_id) 
@@ -213,7 +213,7 @@
     async function edit_from_db(col_list) 
         {
             console.log("inside changed from db");
-            const _id = document.getElementById("id_edit").value
+            const id = document.getElementById("id_edit").value
             const title = document.getElementById("title_edit").value;
             const content = document.getElementById("content_edit").value
             const style = document.getElementById("style_edit").value
@@ -226,7 +226,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    _id,
+                    id,
                     title,
                     content,
                     style,
@@ -252,7 +252,7 @@
         editopenForm2();
         _row = $(ctl).parents("tr");
         var cols = _row.children("td");
-        $("#_id_edit").val($(cols[0]).text());
+        $("#id_edit").val($(cols[0]).text());
         $("#title_edit").val($(cols[1]).text());
         $("#content_edit").val($(cols[2]).text());
         $("#style_edit").val($(cols[3]).text());
