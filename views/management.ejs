@@ -111,7 +111,7 @@
             const screenNumber = document.getElementById("screenNumber_add").value
             console.log(title)
             const result = await fetch('/api/add_adv', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -145,6 +145,7 @@
     }
     async function changepassword() {
             console.log("inside change password");
+            const username = document.getElementById('username_change').value
             const password = document.getElementById('password_change').value
             console.log(password)
             const result = await fetch('/api/change_password', {
@@ -153,6 +154,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    username,
                     password
                 })
             }).then((res) => res.json())
