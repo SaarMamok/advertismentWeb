@@ -24,7 +24,7 @@
           <h2>Change Username or Password</h2>
       
           <label for="username"><b>Username</b></label>
-          <input type="text"  placeholder="Enter your old username or a new username " id="username_change" required>
+          <input type="text"  placeholder="Enter your username or a new username " id="username_change" required>
       
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter new password or old password" id="password_change" required>
@@ -213,7 +213,7 @@
     async function edit_from_db(col_list) 
         {
             console.log("inside changed from db");
-            const id = document.getElementById("id_edit").value
+            const _id = document.getElementById("id_edit").value
             const title = document.getElementById("title_edit").value;
             const content = document.getElementById("content_edit").value
             const style = document.getElementById("style_edit").value
@@ -226,7 +226,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id,
+                    _id,
                     title,
                     content,
                     style,
@@ -252,12 +252,12 @@
         editopenForm2();
         _row = $(ctl).parents("tr");
         var cols = _row.children("td");
-        $("#id_edit").val($(cols[1]).text());
-        $("#title_edit").val($(cols[2]).text());
-        $("#content_edit").val($(cols[3]).text());
-        $("#style_edit").val($(cols[4]).text());
-        $("#time_edit").val($(cols[5]).text());
-        $("#screenNumber_edit").val($(cols[6]).text());
+        $("#_id_edit").val($(cols[0]).text());
+        $("#title_edit").val($(cols[1]).text());
+        $("#content_edit").val($(cols[2]).text());
+        $("#style_edit").val($(cols[3]).text());
+        $("#time_edit").val($(cols[4]).text());
+        $("#screenNumber_edit").val($(cols[5]).text());
     }
 
     function edit_params(){
