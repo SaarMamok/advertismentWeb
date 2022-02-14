@@ -213,7 +213,7 @@ MongoClient.connect(url, function(err, db) {
           screenNumber: ""
     };
     var new_query_edit = { $set: {title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
-    dbo.collection(DBNAME).fin(query_edit_id, new_query_edit,  function (err, obj){
+    dbo.collection(DBNAME).findOneAndUpdate({}, new_query_edit,  function (err, obj){
       if (err) throw err;
       console.log("One advertisment changed");
     })
