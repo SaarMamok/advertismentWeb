@@ -209,9 +209,9 @@ MongoClient.connect(url, function(err, db) {
           content: "",
           style: "",
           time: "",
-          screen_number: ""
+          screenNumber: ""
     };
-    var new_query_edit = { $set: {title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screen_number: req.body.screen_number } };
+    var new_query_edit = { $set: {title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
     dbo.collection(DBNAME).updateOne(query_edit_id, new_query_edit,  function (err, obj){
       if (err) throw err;
       console.log("One advertisment changed");
@@ -227,7 +227,7 @@ MongoClient.connect(url, function(err, db) {
           content: req.body.content,
           style: req.body.style,
           time: req.body.time,
-          screen_number: req.body.screen_number
+          screenNumber: req.body.screenNumber
     };
     dbo.collection(DBNAME).insertOne(query_add_id, function (err, obj){
       if (err) throw err;

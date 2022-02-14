@@ -34,7 +34,7 @@
         <input type="number" placeholder="Enter time in sec" id="time_add" required>
 
         <label for="Screen-number"><b>Screem Number</b></label>
-        <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_add" required>
+        <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screenNumber_add" required>
     
         <button type="submit" class="submit_btn" onclick="add_params();">Submit</button>
         <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
@@ -58,7 +58,7 @@
           <input type="number" placeholder="Enter time in sec" id="time_edit" required>
   
           <label for="Screen-number"><b>Screem Number</b></label>
-          <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screen_number_edit" required>
+          <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screenNumber_edit" required>
       
           <button type="submit" class="submit_btn" onclick="edit_params();">Submit</button>
           <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
@@ -81,7 +81,7 @@
             const content = document.getElementById("content_add").value
             const style = document.getElementById("style_add").value
             const time = document.getElementById("time_add").value
-            const screen_number = document.getElementById("screen_number_add").value
+            const screenNumber = document.getElementById("screenNumber_add").value
             console.log(title)
             const result = await fetch('/api/add_adv', {
                 method: 'POST',
@@ -93,7 +93,7 @@
                     content,
                     style,
                     time,
-                    screen_number
+                    screenNumber
                 })
             }).then((res) => res.json())
                
@@ -155,7 +155,7 @@
             const content = document.getElementById("content_edit").value
             const style = document.getElementById("style_edit").value
             const time = document.getElementById("time_edit").value
-            const screen_number = document.getElementById("screen_number_edit").value
+            const screenNumber = document.getElementById("screenNumber_edit").value
             console.log(title)
             const result = await fetch('/api/edit_adv', {
                 method: 'POST',
@@ -167,7 +167,7 @@
                     content,
                     style,
                     time,
-                    screen_number
+                    screenNumber
                 })
             }).then((res) => res.json())
                
@@ -192,7 +192,7 @@
         $("#content_edit").val($(cols[2]).text());
         $("#style_edit").val($(cols[3]).text());
         $("#time_edit").val($(cols[4]).text());
-        $("#screen_number_edit").val($(cols[5]).text());
+        $("#screenNumber_edit").val($(cols[5]).text());
     }
 
     function edit_params(){
