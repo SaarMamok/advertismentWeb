@@ -131,21 +131,21 @@ MongoClient.connect(url, function(err, db) {
 
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.dropDatabase();
+  // dbo.dropDatabase();
   
-  dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
-  if (err) throw err;
-  console.log("1 document inserted");
-  });
+  // dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
+  // if (err) throw err;
+  // console.log("1 document inserted");
+  // });
 
-  var  default_admin = "admin";
-  var default_password= "123456";
-  var admin_default = {"username": default_admin,"password":default_password};
+  // var  default_admin = "admin";
+  // var default_password= "123456";
+  // var admin_default = {"username": default_admin,"password":default_password};
 
-  dbo.collection(DB_USERS).insertOne(admin_default, function(err, res) {
-    if (err) throw err;
-    console.log("admin document inserted");
-    });
+  // dbo.collection(DB_USERS).insertOne(admin_default, function(err, res) {
+  //   if (err) throw err;
+  //   console.log("admin document inserted");
+  //   });
   app.get('/', (req,res)=>{
     res.render("login.ejs");
     
@@ -213,7 +213,7 @@ MongoClient.connect(url, function(err, db) {
       if (err) throw err;
         console.log(obj);
 
-      var new_query_edit = { $set: { title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
+      var new_query_edit = { $set: { title : req.body.title, content: req.body.content, style: req.body.style, time: parseInt(req.body.time), screenNumber: parseInt(req.body.screenNumber) } };
       dbo.collection(DBNAME).findOneAndUpdate(obj, new_query_edit,  function (err, obj){
       if (err) throw err;
       console.log("One advertisment changed");
@@ -230,8 +230,8 @@ MongoClient.connect(url, function(err, db) {
           title : req.body.title,
           content: req.body.content,
           style: req.body.style,
-          time: req.body.time,
-          screenNumber: req.body.screenNumber
+          time: parseInt(req.body.time),
+          screenNumber: parseInt(req.body.screenNumber)
     };
     dbo.collection(DBNAME).insertOne(query_add_id, function (err, obj){
       if (err) throw err;
@@ -247,9 +247,9 @@ MongoClient.connect(url, function(err, db) {
         var new_username_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
         dbo.collection(DB_USERS).findOneAndUpdate({},new_username_passowrd, function (err, obj){
           if (err) throw err;
-          console.log("Admin password changed");
+          console.log("Admin username/password changed");
         })
-        res.json({status: 'Password Changed'
+        res.json({status: 'Username/Password Changed'
       });
     })
 
