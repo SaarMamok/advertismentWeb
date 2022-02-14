@@ -4,6 +4,7 @@ var jsonParser = bodyParser.json()
 var app = express()
 var port = 8080
 var path =require('path')
+const { debugPort } = require('process')
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
@@ -212,10 +213,9 @@ MongoClient.connect(url, function(err, db) {
           screenNumber: ""
     };
     var new_query_edit = { $set: {title : req.body.title, content: req.body.content, style: req.body.style, time: req.body.time, screenNumber: req.body.screenNumber } };
-    dbo.collection(DBNAME).updateOne(query_edit_id, new_query_edit,  function (err, obj){
+    dbo.collection(DBNAME).fin(query_edit_id, new_query_edit,  function (err, obj){
       if (err) throw err;
       console.log("One advertisment changed");
-      db.close()
     })
       res.json({status: 'Advertisement Changed'
     });
@@ -233,31 +233,21 @@ MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       console.log(obj);
       console.log("One advertisment added");
-      db.close()
     })
       res.json({status: 'Advertisement added'
     });
   })
 
-  
+
   router.post('/api/change_password',jsonParser, async (req, res) => {
-        var old_password = { password: "" };
-        var new_passowrd  ={ $set: {password: req.body.password } };
-        dbo.collection(DB_USERS).updateOne(old_password,new_passowrd, function (err, result){
-          console.log(result);
+        var new_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
+        dbo.collection(DB_USERS).findOneAndUpdate({},new_passowrd, function (err, obj){
           if (err) throw err;
-          console.log("after func");
-          console.log(result);
           console.log("Admin password changed");
         })
         res.json({status: 'Password Changed'
       });
     })
-
-
-
-
-
 
 });
 
