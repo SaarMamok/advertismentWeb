@@ -24,12 +24,12 @@
           <h2>Change Username or Password</h2>
       
           <label for="username"><b>Username</b></label>
-          <input type="text"  placeholder="Enter new username" id="username_change" required>
+          <input type="text"  placeholder="Enter your username or a new username " id="username_change" required>
       
           <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter new password" id="password_change" required>
+          <input type="password" placeholder="Enter new password or old password" id="password_change" required>
           
-          <button type="submit" class="submit_btn" onclick="add_params();">Change</button>
+          <button type="submit" class="submit_btn" onclick="change_params();">Change</button>
           <button type="button" class="btn cancel" onclick="closeForm();">Cancel</button>
         </form>
       </div>
@@ -140,6 +140,30 @@
     function changePasswordopenForm() {
       document.getElementById("changePasswordForm").style.display = "block";
     }
+    function change_params(){
+        changepassword()
+    }
+    async function changepassword() {
+            console.log("inside change password");
+            const password = document.getElementById('password_change').value
+            console.log(password)
+            const result = await fetch('/api/change_password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    password
+                })
+            }).then((res) => res.json())
+               
+            if(result.status == 'error'){
+                alert(result.error)
+            }
+            else{
+                alert(result.status)
+            }
+        }
   
      function addopenForm() {
       document.getElementById("AddForm").style.display = "block";

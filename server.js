@@ -238,6 +238,27 @@ MongoClient.connect(url, function(err, db) {
       res.json({status: 'Advertisement added'
     });
   })
+
+  
+  router.post('/api/change_password',jsonParser, async (req, res) => {
+        var old_password = { password: "" };
+        var new_passowrd  ={ $set: {password: req.body.password } };
+        dbo.collection(DB_USERS).updateOne(old_password,new_passowrd, function (err, result){
+          console.log(result);
+          if (err) throw err;
+          console.log("after func");
+          console.log(result);
+          console.log("Admin password changed");
+        })
+        res.json({status: 'Password Changed'
+      });
+    })
+
+
+
+
+
+
 });
 
 
