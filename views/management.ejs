@@ -11,10 +11,22 @@
    
 </head>
 <body id="mainbody">
-    <h1>Advertisments Settings </h1>
-    <p id='showData' style="align-items: center;"></p>
     
-    <button class="open-button" onclick="change_Username_PasswordForm();">Change Username or Password</button>
+    <h1>Dashboard</h1>
+    
+        <div class="clients-list">
+            <h3>Clients</h3>
+            <h2 id="Screen_num_1">Screen number 1: Disconnected</h2>
+            <h2 id="Screen_num_2">Screen number 2: Disconnected</h2>
+            <h2 id="Screen_num_3">Screen number 3: Disconnected</h2>
+        </div>
+        <div class="popup-btn">
+            <button class="open-button" onclick="change_Username_PasswordForm();">Change Username or Password</button>
+            <button class="open-button" onclick="addopenForm();">Add Advertisment</button>
+        </div>
+        
+
+    <p id='showData' style="align-items: center;"></p>
 
     <div class="form-popup" id="changeUsernamePasswordForm">
         <form class="form-container">
@@ -30,12 +42,6 @@
           <button type="button" class="btn cancel" onclick="closeForm();">Cancel</button>
         </form>
       </div>
-
-
-
-
-
-    <button class="open-button" onclick="addopenForm();">Add Advertisment</button>
 
     <div class="form-popup" id="AddForm">
       <form class="form-container">
@@ -85,20 +91,8 @@
           <button type="submit" class="submit_btn" onclick="edit_params();">Submit</button>
           <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
         </form>
-      </div>
-
-
-      <div class="client-info">
-        <br>
-        <div class="clients-list">
-            <h3>Clients</h3>
-            <h2 id="Screen_num_1">Screen number 1: Disconnected</h2>
-            <h2 id="Screen_num_2">Screen number 2: Disconnected</h2>
-            <h2 id="Screen_num_3">Screen number 3: Disconnected</h2>
-        </div>
     </div>
 
-      
 </body>
 </html>
 

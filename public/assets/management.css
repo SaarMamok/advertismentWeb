@@ -3,24 +3,15 @@ h1{
     color: black;
 }
 
-.client-info{
-  display: flex;
-  justify-content: space-evenly;
-  position: absolute;
-  right: 100px;
-  bottom: 35px; 
-  
-}
 .clients-list{
+  text-align: center;
   background-color: #3a5997;
   width: 18rem;
-  padding: 0rem 0rem;
-  text-align: center;
   border-radius: 2rem;
-  margin-bottom: 0.8rem;
   border: 1px solid;
   border-color: #023047;
   color: white;
+  margin-left: 280px;
 }
 
 .clients-list h3  {
@@ -59,8 +50,10 @@ th {
     font-weight:bold;
 }
 
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 
 
 .open-button {
@@ -75,7 +68,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   width: 230px;
   margin-left: 80px;
   margin-right: auto;
-  margin-bottom: 250px;
+  margin-bottom: 20px;
 }
 
 
@@ -89,13 +82,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 .form-container {
-  max-width: 450px;
+  max-width: 550px;
   padding: 10px;
   background-color: white;
 }
 
 .form-container input[type=text], .form-container input[type=image], .form-container input[type=number], .form-container input[type=password]{
-  width: 100%;
+  width: 95%;
   padding: 15px;
   margin: 5px 0 22px 0;
   border: none;
@@ -110,7 +103,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .form-container .btn, .submit_btn {
   background-color: #3a5997;
   color: white;
-  padding: 16px 20px;
+  padding: 12px 16px;
   border: none;
   cursor: pointer;
   width: 100%;
@@ -124,4 +117,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 .form-container .submit_btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+.popup-btn{
+  text-align: center;
 }
