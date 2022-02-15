@@ -31,9 +31,15 @@
 
 <script type="text/javascript">
 
+   
+
     var data_list = '<%- (data) %>';
 
-    const data_obj = JSON.parse (data_list)         
+    const data_obj = JSON.parse(data_list)    
+    
+    var activeScreen = (data_obj[1].screenNumber)
+
+    console.log(activeScreen)
 
     $(document).ready(function(){
         index = 0;
@@ -45,8 +51,41 @@
             $('#advertisment_title').text(data_obj[i].title);
             $('#image_advrtisment').attr('src', data_obj[i].style);
         }
-
     });
+
+
+    if(window.closed)
+    {
+        stopScreen();
+    }
+
+
+    async function stopScreen(){
+    console.log("screen turn off");
+    const screen = activeScreen
+    const result = await fetch('/api/screenoff', {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        screen
+    })
+    }).then((res) => res.json())
+   
+    if(result.status == 'error'){
+    
+    alert(result.error)
+    stat = false;
+}
+    else{
+    stat=true;
+    alert(result.status)
+}
+
+}
+
+
 
 </script>
 

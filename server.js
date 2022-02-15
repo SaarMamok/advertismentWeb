@@ -15,6 +15,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
 const DBNAME = "Advertisements";
 const DB_USERS = "Admins";
+const DB_SCREENS = "Screens"
 app.set("view engine","ejs");
 
 app.use('/public', express.static('public'));
@@ -131,6 +132,12 @@ var advertisementList1=[
 
 ];
 
+var connectionScreen = [
+  {connectedScreen1: false},
+  {connectedScreen2: false},
+  {connectedScreen3: false}
+]
+
 
 MongoClient.connect(url, function(err, db) {
 
@@ -151,6 +158,22 @@ MongoClient.connect(url, function(err, db) {
   //   if (err) throw err;
   //   console.log("admin document inserted");
   //   });
+
+
+
+  
+
+  dbo.collection(DB_SCREENS).insertMany(connectionScreen, function(err, res) {
+  if (err) throw err;
+  console.log("screen document inserted");
+  });
+
+
+
+
+
+
+
   app.get('/', (req,res)=>{
     res.render("login.ejs");
     
@@ -163,34 +186,53 @@ MongoClient.connect(url, function(err, db) {
   })
   app.get('/screen=:num', (req, res) => {
   var query = {screenNumber:1};
-  app.connectedScreen1++;
-  console.log("connected screens:")
-  console.log(app.connectedScreen1)
   if(req.params.num==1){
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
         if (err) throw err;
         res.render("index1.ejs", {data: JSON.stringify(result)});
       });
+      var screenQuery = {
+        "connectedScreen1": false
+      }
+      var change =  { $set: { "connectedScreen1": true}};
+
+      dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
+        if (err) throw err;
+        console.log("screen 1 opened")
+      })
   }
+  
   else if(req.params.num==2){
     var query = {screenNumber:2};
-    app.connectedScreen2++;
-  console.log("connected screens:")
-  console.log(app.connectedScreen2)
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
       if (err) throw err;
       res.render("index1.ejs", {data: JSON.stringify(result)});
     });
+    var screenQuery = {
+      "connectedScreen2": false
+    }
+    var change =  { $set: { "connectedScreen2": true}};
+
+    dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
+      if (err) throw err;
+      console.log("screen 2 opened")
+    })
   }
   else if(req.params.num==3){
     var query = {screenNumber:3};
-    app.connectedScreen3++;
-  console.log("connected screens:")
-  console.log(app.connectedScreen3)
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
       if (err) throw err;
       res.render("index1.ejs", {data: JSON.stringify(result)});
     });
+    var screenQuery = {
+      "connectedScreen3": false
+    }
+    var change =  { $set: { "connectedScreen3": true}};
+
+    dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
+      if (err) throw err;
+      console.log("screen 3 opened")
+    })
   }
  })
   var router = express.Router()
@@ -216,6 +258,39 @@ MongoClient.connect(url, function(err, db) {
       res.json({status: 'Advertisement Deleted'
     });
   })
+
+
+
+
+
+
+
+  router.post('/api/screenoff', jsonParser,async (req, res) => {
+    console.log("screen off")
+    var screenId
+    if(req.body.screen===1){
+      screenId="connectedScreen1"
+    }
+    if(req.body.screen===2){
+      screenId="connectedScreen2"
+    }
+    if(req.body.screen===3){
+      screenId="connectedScreen3"
+    }
+      var new_query_edit = { $set: { screenId: false}};
+      dbo.collection(DB_SCREENS).findOneAndUpdate(screenId, new_query_edit,  function (err, obj){
+      if (err) throw err;
+      console.log("screen closed");
+    })
+      res.json({status: 'screen changed'
+    });
+  })
+
+
+
+
+
+
 
   router.post('/api/edit_adv', jsonParser,async (req, res) => {
     itemId = req.body.id
