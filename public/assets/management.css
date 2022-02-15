@@ -7,29 +7,28 @@ h1{
   display: flex;
   justify-content: space-evenly;
   position: absolute;
-  left: 65px;
-  bottom: 100px;
+  right: 100px;
+  bottom: 35px; 
   
 }
-.clients-connected, .clients-disconnected  {
+.clients-list{
   background-color: #3a5997;
-  width: 16rem;
-  padding: 0rem 1rem;
+  width: 18rem;
+  padding: 0rem 0rem;
   text-align: center;
   border-radius: 2rem;
   margin-bottom: 0.8rem;
   border: 1px solid;
   border-color: #023047;
-  margin: 20px;
   color: white;
 }
 
-.clients-connected h3, .clients-disconnected h3 {
-  font-size: 1.3rem;
+.clients-list h3  {
+  font-size: 1.5rem;
 }
 
-.clients-connected h2, .clients-disconnected h2 {
-  font-size: 2rem;
+.clients-list h2 {
+  font-size: 1rem;
   color: white;
 }
 

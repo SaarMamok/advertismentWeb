@@ -143,6 +143,7 @@ MongoClient.connect(url, function(err, db) {
 
   if (err) throw err;
   var dbo = db.db("mydb");
+
   // dbo.dropDatabase();
   
   // dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
@@ -159,82 +160,79 @@ MongoClient.connect(url, function(err, db) {
   //   console.log("admin document inserted");
   //   });
 
+  // dbo.collection(DB_SCREENS).insertMany(connectionScreen, function(err, res) {
+  // if (err) throw err;
+  // console.log("screen document inserted");
+  // });
 
-
-  
-
-  dbo.collection(DB_SCREENS).insertMany(connectionScreen, function(err, res) {
-  if (err) throw err;
-  console.log("screen document inserted");
-  });
-
-
-
-
-
-
-
+  //Home page
   app.get('/', (req,res)=>{
     res.render("login.ejs");
     
   })
+
+  // Go after login 
   app.get('/management', (req,res)=>{
     dbo.collection(DBNAME).find({}).toArray(function(err,result){
       if (err) throw err;
       res.render("management.ejs",{data: JSON.stringify(result)});
     })
   })
+
+  // Upload Screen and check which screen is on 
   app.get('/screen=:num', (req, res) => {
-  var query = {screenNumber:1};
-  if(req.params.num==1){
-    dbo.collection(DBNAME).find(query).toArray(function(err, result) {
+    var query = {screenNumber:1};
+    if(req.params.num==1){
+      dbo.collection(DBNAME).find(query).toArray(function(err, result) {
+          if (err) throw err;
+          res.render("index1.ejs", {data: JSON.stringify(result)});
+        });
+        var screenQuery = {
+          "connectedScreen1": false
+        }
+        var change =  { $set: { "connectedScreen1": true}};
+
+        dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
+          if (err) throw err;
+          console.log("screen 1 opened")
+        })
+    }
+    
+    else if(req.params.num==2){
+      var query = {screenNumber:2};
+      dbo.collection(DBNAME).find(query).toArray(function(err, result) {
         if (err) throw err;
         res.render("index1.ejs", {data: JSON.stringify(result)});
       });
       var screenQuery = {
-        "connectedScreen1": false
+        "connectedScreen2": false
       }
-      var change =  { $set: { "connectedScreen1": true}};
+      var change =  { $set: { "connectedScreen2": true}};
 
       dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
         if (err) throw err;
-        console.log("screen 1 opened")
+        console.log("screen 2 opened")
       })
-  }
-  
-  else if(req.params.num==2){
-    var query = {screenNumber:2};
-    dbo.collection(DBNAME).find(query).toArray(function(err, result) {
-      if (err) throw err;
-      res.render("index1.ejs", {data: JSON.stringify(result)});
-    });
-    var screenQuery = {
-      "connectedScreen2": false
     }
-    var change =  { $set: { "connectedScreen2": true}};
+    else if(req.params.num==3){
+      var query = {screenNumber:3};
+      dbo.collection(DBNAME).find(query).toArray(function(err, result) {
+        if (err) throw err;
+        res.render("index1.ejs", {data: JSON.stringify(result)});
+      });
+      var screenQuery = {
+        "connectedScreen3": false
+      }
+      var change =  { $set: { "connectedScreen3": true}};
 
-    dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
-      if (err) throw err;
-      console.log("screen 2 opened")
-    })
-  }
-  else if(req.params.num==3){
-    var query = {screenNumber:3};
-    dbo.collection(DBNAME).find(query).toArray(function(err, result) {
-      if (err) throw err;
-      res.render("index1.ejs", {data: JSON.stringify(result)});
-    });
-    var screenQuery = {
-      "connectedScreen3": false
+      dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
+        if (err) throw err;
+        console.log("screen 3 opened")
+      })
     }
-    var change =  { $set: { "connectedScreen3": true}};
+  })
 
-    dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
-      if (err) throw err;
-      console.log("screen 3 opened")
-    })
-  }
- })
+  // Login User
   var router = express.Router()
   app.use("/",router);
   router.post('/api/login', jsonParser,async (req, res) => {
@@ -249,6 +247,20 @@ MongoClient.connect(url, function(err, db) {
     })
   })
 
+  // Change Admin username password
+  router.post('/api/change_username_password',jsonParser, async (req, res) => {
+    var new_username_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
+    dbo.collection(DB_USERS).findOneAndUpdate({},new_username_passowrd, function (err, obj){
+      if (err) throw err;
+      console.log("Admin username/password changed");
+    })
+    res.json({status: 'Username/Password Changed'
+  });
+  })
+
+ 
+
+  // Delete Advertisment
   router.post('/api/delete_adv', jsonParser,async (req, res) => {
       var query_delete_id = {title : req.body.title };
       dbo.collection(DBNAME).deleteOne(query_delete_id, function (err, obj){
@@ -259,12 +271,7 @@ MongoClient.connect(url, function(err, db) {
     });
   })
 
-
-
-
-
-
-
+  // Check if Screen is off
   router.post('/api/screenoff', jsonParser,async (req, res) => {
     console.log("screen off")
     var screenId
@@ -287,11 +294,7 @@ MongoClient.connect(url, function(err, db) {
   })
 
 
-
-
-
-
-
+  // Edit Advertisment
   router.post('/api/edit_adv', jsonParser,async (req, res) => {
     itemId = req.body.id
     var mongosss = require('mongodb');
@@ -313,6 +316,7 @@ MongoClient.connect(url, function(err, db) {
     });
   })
 
+  // Add Advertisment
   router.post('/api/add_adv', jsonParser,async (req, res) => {
     var query_add_id = {
           title : req.body.title,
@@ -331,17 +335,6 @@ MongoClient.connect(url, function(err, db) {
   })
 
 
-  router.post('/api/change_username_password',jsonParser, async (req, res) => {
-        var new_username_passowrd  ={ $set: {username: req.body.username, password: req.body.password } };
-        dbo.collection(DB_USERS).findOneAndUpdate({},new_username_passowrd, function (err, obj){
-          if (err) throw err;
-          console.log("Admin username/password changed");
-        })
-        res.json({status: 'Username/Password Changed'
-      });
-    })
-
 });
-
 
 app.listen(port)
