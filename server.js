@@ -6,6 +6,11 @@ var port = 8080
 var path =require('path')
 const { debugPort } = require('process')
 
+app.connectedScreen1=0
+app.connectedScreen2=0
+app.connectedScreen3=0
+
+
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
 const DBNAME = "Advertisements";
@@ -158,8 +163,10 @@ MongoClient.connect(url, function(err, db) {
   })
   app.get('/screen=:num', (req, res) => {
   var query = {screenNumber:1};
+  app.connectedScreen1++;
+  console.log("connected screens:")
+  console.log(app.connectedScreen1)
   if(req.params.num==1){
-  
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
         if (err) throw err;
         res.render("index1.ejs", {data: JSON.stringify(result)});
@@ -167,6 +174,9 @@ MongoClient.connect(url, function(err, db) {
   }
   else if(req.params.num==2){
     var query = {screenNumber:2};
+    app.connectedScreen2++;
+  console.log("connected screens:")
+  console.log(app.connectedScreen2)
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
       if (err) throw err;
       res.render("index1.ejs", {data: JSON.stringify(result)});
@@ -174,6 +184,9 @@ MongoClient.connect(url, function(err, db) {
   }
   else if(req.params.num==3){
     var query = {screenNumber:3};
+    app.connectedScreen3++;
+  console.log("connected screens:")
+  console.log(app.connectedScreen3)
     dbo.collection(DBNAME).find(query).toArray(function(err, result) {
       if (err) throw err;
       res.render("index1.ejs", {data: JSON.stringify(result)});
