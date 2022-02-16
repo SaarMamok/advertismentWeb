@@ -1,0 +1,27 @@
+
+.center{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    background-color: #282828;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.center img{
+    height: 700px; 
+    width: 700px; 
+}
+
+h1{
+    margin-left: auto; 
+    margin-right: auto;
+    text-align:center; 
+    color: white;
+    font-size: 2cm;
+    background-color: #282828;
+    font-family: courier;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
