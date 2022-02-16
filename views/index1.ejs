@@ -61,27 +61,27 @@
 
 
     async function stopScreen(){
-    console.log("screen turn off");
-    const screen = activeScreen
-    const result = await fetch('/api/screenoff', {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        screen
-    })
-    }).then((res) => res.json())
-   
-    if(result.status == 'error'){
+        console.log("screen turn off");
+        const screen = activeScreen
+        const result = await fetch('/api/screenoff', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            screen
+        })
+        }).then((res) => res.json())
     
-    alert(result.error)
-    stat = false;
-}
-    else{
-    stat=true;
-    alert(result.status)
-}
+        if(result.status == 'error'){
+            
+            alert(result.error)
+            stat = false;
+        }
+        else{
+            stat=true;
+            alert(result.status)
+        }
 
 }
 
