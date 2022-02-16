@@ -209,7 +209,7 @@ MongoClient.connect(url, function(err, db) {
       Screen3+=1;
     }
   })
-  var admin_login=false;
+var admin_login=false;
   // Login User
   var router = express.Router()
   app.use("/",router);
@@ -299,7 +299,6 @@ MongoClient.connect(url, function(err, db) {
     if(Screen3!=0){
       adv_onlive.push("screen3")
     }
-    console.log(adv_onlive)
       res.json({data: JSON.stringify(adv_onlive)
     });
   })
@@ -320,7 +319,7 @@ MongoClient.connect(url, function(err, db) {
       res.json({status: 'Advertisement added'
     });
   })
-  
+ 
   router.post('/api/login_check',async (req, res) => {
    if(admin_login==true){
       res.json({status:'true' });
@@ -329,8 +328,10 @@ MongoClient.connect(url, function(err, db) {
     res.json({status:'false',address:'/' });
  }
   })
-
-
+  router.post('/api/logout',async (req, res) => {
+    admin_login=false;
+     res.json({status:'false',address:'/' });
+  })
 });
 
 app.listen(port)

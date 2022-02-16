@@ -13,7 +13,7 @@
 <body id="mainbody">
     
     <h1>Dashboard</h1>
-    
+        <button id="logout">logout</button>
         <div class="clients-list">
             <h3>Clients</h3>
             <h2 id="Screen_num_1">Screen number 1: Disconnected</h2>
@@ -99,6 +99,20 @@
 
 <script type="text/javascript">
    
+   $("#logout").click(function(){
+        logout();
+   })
+   async function logout() 
+        {
+            const result = await fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => res.json())
+
+                $(location).attr('href', result.address)
+        }
    $( document ).ready(function() {
        check_if_user_logged_in();
        check();
