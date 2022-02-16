@@ -1,3 +1,21 @@
+
+#logout{
+  background-color: #3a5997;
+  color: white;
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 180px;
+  margin-right: auto;
+}
+#logout:hover{
+  background-color: #253b66;
+  transition: ease-in-out 0.5s;
+}
+
 h1{
     text-align: center;
     color: black;
@@ -11,7 +29,8 @@ h1{
   border: 1px solid;
   border-color: #023047;
   color: white;
-  margin-left: 200px;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .clients-list h3  {

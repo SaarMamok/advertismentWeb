@@ -11,9 +11,9 @@
    
 </head>
 <body id="mainbody">
-    
+    <button id="logout">logout</button>
     <h1>Dashboard</h1>
-        <button id="logout">logout</button>
+        
         <div class="clients-list">
             <h3>Clients</h3>
             <h2 id="Screen_num_1">Screen number 1: Disconnected</h2>
@@ -29,7 +29,7 @@
     <p id='showData' style="align-items: center;"></p>
 
     <div class="form-popup" id="changeUsernamePasswordForm">
-        <form class="form-container">
+        <form class="form-container" onsubmit="change_params();">
           <h2>Change Username or Password</h2>
       
           <label for="username"><b>Username</b></label>
@@ -38,13 +38,13 @@
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter new password or old password" id="password_change" required>
           
-          <button type="submit" class="submit_btn" onsubmit="change_params();">Change</button>
+          <button type="submit" class="submit_btn" >Change</button>
           <button type="button" class="btn cancel" onclick="closeForm();">Cancel</button>
         </form>
       </div>
 
     <div class="form-popup" id="AddForm">
-      <form class="form-container">
+      <form class="form-container"onsubmit="add_params();">
         <h2>New Advertisment</h2>
     
         <label for="title"><b>Title</b></label>
@@ -62,13 +62,13 @@
         <label for="Screen-number"><b>Screem Number</b></label>
         <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screenNumber_add" min="1" max="3" required>
     
-        <button type="submit" class="submit_btn" onsubmit="add_params();">Submit</button>
+        <button type="submit" class="submit_btn" >Submit</button>
         <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
       </form>
     </div>
 
     <div class="form-popup" id="EditForm">
-        <form class="form-container">
+        <form class="form-container" onsubmit="edit_params();">
           <h2>Edit Advertisment</h2>
       
           <input type="text"  id="id_edit" required>
@@ -88,7 +88,7 @@
           <label for="Screen-number"><b>Screem Number</b></label>
           <input type="number" placeholder="Enter Screen-number (1, 2, 3)" id="screenNumber_edit" min="1" max="3" required>
       
-          <button type="submit" class="submit_btn" onsubmit="edit_params();">Submit</button>
+          <button type="submit" class="submit_btn" >Submit</button>
           <button type="button" class="btn cancel" onclick="closeForm();">Close</button>
         </form>
     </div>
