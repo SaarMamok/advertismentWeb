@@ -6,9 +6,6 @@ var port = 8080
 var path =require('path')
 const { debugPort } = require('process')
 
-// app.connectedScreen1=0
-// app.connectedScreen2=0
-// app.connectedScreen3=0
 
 
 var MongoClient = require('mongodb').MongoClient;
@@ -212,7 +209,7 @@ MongoClient.connect(url, function(err, db) {
       Screen3+=1;
     }
   })
-
+  var admin_login=false;
   // Login User
   var router = express.Router()
   app.use("/",router);
@@ -223,6 +220,7 @@ MongoClient.connect(url, function(err, db) {
         res.json({status: 'error', error: 'Invalid username/password'});
       }
       else{
+        admin_login=true;
         res.json({status: 'Login Successfully', address:'http://127.0.0.1:8080/management' });
       }
     })
@@ -289,6 +287,7 @@ MongoClient.connect(url, function(err, db) {
       res.json({status: 'Advertisement Changed'
     });
   })
+  //check if admin logged in
   router.post('/api/checkAdvOnline',async (req, res) => {
     var adv_onlive=[];
     if(Screen1!=0){
@@ -320,6 +319,15 @@ MongoClient.connect(url, function(err, db) {
     })
       res.json({status: 'Advertisement added'
     });
+  })
+  
+  router.post('/api/login_check',async (req, res) => {
+   if(admin_login==true){
+      res.json({status:'true' });
+   }
+   else{
+    res.json({status:'false',address:'/' });
+ }
   })
 
 

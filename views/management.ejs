@@ -100,9 +100,24 @@
 <script type="text/javascript">
    
    $( document ).ready(function() {
-       check()
+       check_if_user_logged_in();
+       check();
    });
     
+   async function check_if_user_logged_in() 
+        {
+            const result = await fetch('/api/login_check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => res.json())
+               
+            if(result.status == 'false'){
+                $(location).attr('href', result.address)
+            }
+        }
+
     async function check(){
         const result = await fetch('/api/checkAdvOnline', {
                 method: 'POST',
@@ -307,13 +322,6 @@
     const data_obj = JSON.parse (data_list)         
      $(document).ready(function()
         {
-            // $('#advertisment_title').text(data_obj[i].title);
-            // $('#image_advrtisment').attr('src', data_obj[i].style);
-            // $('#mainbody').append(data_obj);
-            // for(i=0;i<data_obj.length;i++){
-                
-            // }
-            // console.log(Object.keys(data_obj[0]));
             var col = [];
             for (var i = 0; i < data_obj.length; i++) {
                 for (var key in data_obj[i]) {
@@ -323,10 +331,8 @@
                 }
             }
             var table = document.createElement("table");
-            // col.push("Action");
             var tr = table.insertRow(-1); 
 
-            // titles
             for(var i = 0; i< Object.keys(data_obj[0]).length; i++){
                 var th = document.createElement("th");     
                 th.innerHTML = col[i];
