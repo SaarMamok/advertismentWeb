@@ -99,6 +99,40 @@
 
 <script type="text/javascript">
    
+   $( document ).ready(function() {
+       check()
+   });
+    
+    async function check(){
+        const result = await fetch('/api/checkAdvOnline', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => res.json())
+        online_adv= result.data;
+            if(online_adv.includes("screen1")){
+                $('#Screen_num_1').text("Screen number 1: Connected");
+            }
+            else{
+                $('#Screen_num_1').text("Screen number 1: Disconnected");
+            }
+            if(online_adv.includes("screen2")){
+                $('#Screen_num_2').text("Screen number 2: Connected");
+            }
+            else{
+                $('#Screen_num_2').text("Screen number 2: Disconnected");
+            }
+            if(online_adv.includes("screen3")){
+                $('#Screen_num_3').text("Screen number 3: Connected");
+            }
+            else{
+                $('#Screen_num_3').text("Screen number 3: Disconnected");
+            }
+    }
+    
+
+
     function closeForm() {
       document.getElementById("AddForm").style.display = "none";
       document.getElementById("EditForm").style.display = "none";

@@ -52,13 +52,8 @@
             $('#image_advrtisment').attr('src', data_obj[i].style);
         }
     });
-
-
-    if(window.closed)
-    {
-        stopScreen();
-    }
-
+    
+    window.onbeforeunload = stopScreen;
 
     async function stopScreen(){
         console.log("screen turn off");
@@ -75,17 +70,14 @@
     
         if(result.status == 'error'){
             
-            alert(result.error)
             stat = false;
         }
         else{
             stat=true;
-            alert(result.status)
         }
 
 }
 
-
-
 </script>
+
 

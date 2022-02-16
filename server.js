@@ -6,16 +6,15 @@ var port = 8080
 var path =require('path')
 const { debugPort } = require('process')
 
-app.connectedScreen1=0
-app.connectedScreen2=0
-app.connectedScreen3=0
+// app.connectedScreen1=0
+// app.connectedScreen2=0
+// app.connectedScreen3=0
 
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
 const DBNAME = "Advertisements";
 const DB_USERS = "Admins";
-const DB_SCREENS = "Screen"
 app.set("view engine","ejs");
 
 app.use('/public', express.static('public'));
@@ -132,11 +131,8 @@ var advertisementList1=[
 
 ];
 
-var connectionScreen = [
-  {connectedScreen1: false},
-  {connectedScreen2: false},
-  {connectedScreen3: false}
-]
+
+var Screen1 = 0, Screen2=0,Screen3=0;
 
 
 MongoClient.connect(url, function(err, db) {
@@ -148,16 +144,12 @@ MongoClient.connect(url, function(err, db) {
   dbo.listCollections().toArray(function(err,collections){
     var DBNAME_exist = false;
     var DB_USERS_exist = false;
-    var DB_SCREENS_exist=false;
     for(var i=0;i<collections.length;i++){
       if(collections[i].name==DBNAME){
         DBNAME_exist=true
       }
       if(collections[i].name==DB_USERS){
         DB_USERS_exist=true
-      }
-      if(collections[i].name==DB_SCREENS){
-        DB_SCREENS_exist=true
       }
     }
       if(DBNAME_exist ==false){
@@ -174,12 +166,6 @@ MongoClient.connect(url, function(err, db) {
         dbo.collection(DB_USERS).insertOne(admin_default, function(err, res) {
           if (err) throw err;
           console.log("admin document inserted");
-          });
-      }
-      if(DB_SCREENS_exist ==false){
-        dbo.collection(DB_SCREENS).insertMany(connectionScreen, function(err, res) {
-          if (err) throw err;
-          console.log("screen document inserted");
           });
       }
   });
@@ -206,13 +192,7 @@ MongoClient.connect(url, function(err, db) {
           if (err) throw err;
           res.render("index1.ejs", {data: JSON.stringify(result)});
         });
-        var screenQuery = {"connectedScreen1": false}
-        var change =  { $set: {"connectedScreen1": true}};
-
-        dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res2){
-          if (err) throw err;
-          console.log("screen 1 opened")
-        })
+        Screen1+=1;
     }
     else if(req.params.num==2){
       var query = {screenNumber:2};
@@ -220,13 +200,7 @@ MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         res.render("index1.ejs", {data: JSON.stringify(result)});
       });
-      var screenQuery = {"connectedScreen2": false}
-      var change =  { $set: {"connectedScreen2": true}};
-
-      dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
-        if (err) throw err;
-        console.log("screen 2 opened")
-      })
+      Screen2+=1;
         
     }
     else if(req.params.num==3){
@@ -235,13 +209,7 @@ MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         res.render("index1.ejs", {data: JSON.stringify(result)});
       });
-      var screenQuery = {"connectedScreen3": false}
-      var change =  { $set: {"connectedScreen3": true}};
-
-      dbo.collection(DB_SCREENS).findOneAndUpdate(screenQuery,change,function(err,res){
-        if (err) throw err;
-        console.log("screen 3 opened")
-      })
+      Screen3+=1;
     }
   })
 
@@ -286,22 +254,15 @@ MongoClient.connect(url, function(err, db) {
 
   // Check if Screen is off
   router.post('/api/screenoff', jsonParser,async (req, res) => {
-    console.log("screen off")
-    var screenId
     if(req.body.screen===1){
-      screenId= {"connectedScreen1": true}
+      Screen1--;
     }
     if(req.body.screen===2){
-      screenId= {"connectedScreen2": true}
+      Screen2--;
     }
     if(req.body.screen===3){
-      screenId= {"connectedScreen3": true}
+      Screen3--;
     }
-      var new_query_edit = { $set: { screenId: false}};
-      dbo.collection(DB_SCREENS).findOneAndUpdate(screenId, new_query_edit,  function (err, obj){
-      if (err) throw err;
-      console.log("screen closed");
-    })
       res.json({status: 'screen changed'
     });
   })
@@ -328,7 +289,21 @@ MongoClient.connect(url, function(err, db) {
       res.json({status: 'Advertisement Changed'
     });
   })
-
+  router.post('/api/checkAdvOnline',async (req, res) => {
+    var adv_onlive=[];
+    if(Screen1!=0){
+      adv_onlive.push("screen1")
+    }
+    if(Screen2!=0){
+      adv_onlive.push("screen2")
+    }
+    if(Screen3!=0){
+      adv_onlive.push("screen3")
+    }
+    console.log(adv_onlive)
+      res.json({data: JSON.stringify(adv_onlive)
+    });
+  })
   // Add Advertisment
   router.post('/api/add_adv', jsonParser,async (req, res) => {
     var query_add_id = {
