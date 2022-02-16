@@ -144,26 +144,45 @@ MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
 
-  // dbo.dropDatabase();
-  
-  // dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
-  // if (err) throw err;
-  // console.log("1 document inserted");
-  // });
-
-  // var  default_admin = "admin";
-  // var default_password= "123456";
-  // var admin_default = {"username": default_admin,"password":default_password};
-
-  // dbo.collection(DB_USERS).insertOne(admin_default, function(err, res) {
-  //   if (err) throw err;
-  //   console.log("admin document inserted");
-  //   });
-
-  // dbo.collection(DB_SCREENS).insertMany(connectionScreen, function(err, res) {
-  // if (err) throw err;
-  // console.log("screen document inserted");
-  // });
+  //Check if collection exists if not, generate one
+  dbo.listCollections().toArray(function(err,collections){
+    var DBNAME_exist = false;
+    var DB_USERS_exist = false;
+    var DB_SCREENS_exist=false;
+    for(var i=0;i<collections.length;i++){
+      if(collections[i].name==DBNAME){
+        DBNAME_exist=true
+      }
+      if(collections[i].name==DB_USERS){
+        DB_USERS_exist=true
+      }
+      if(collections[i].name==DB_SCREENS){
+        DB_SCREENS_exist=true
+      }
+    }
+      if(DBNAME_exist ==false){
+        dbo.collection(DBNAME).insertMany(advertisementList1, function(err, res) {
+          if (err) throw err;
+          console.log("1 document inserted");
+          });
+      }
+      if(DB_USERS_exist ==false){
+        var  default_admin = "admin";
+        var default_password= "123456";
+        var admin_default = {"username": default_admin,"password":default_password};
+      
+        dbo.collection(DB_USERS).insertOne(admin_default, function(err, res) {
+          if (err) throw err;
+          console.log("admin document inserted");
+          });
+      }
+      if(DB_SCREENS_exist ==false){
+        dbo.collection(DB_SCREENS).insertMany(connectionScreen, function(err, res) {
+          if (err) throw err;
+          console.log("screen document inserted");
+          });
+      }
+  });
 
   //Home page
   app.get('/', (req,res)=>{
